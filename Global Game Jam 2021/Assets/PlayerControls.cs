@@ -33,6 +33,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Eye Switch"",
+                    ""type"": ""Button"",
+                    ""id"": ""37cf68e4-d430-4ebf-817f-f7507695dae1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -101,6 +109,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fa5b3281-dc2f-4bb3-b503-0380ca7c17d4"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Eye Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -111,6 +130,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_LeftEye = asset.FindActionMap("LeftEye", throwIfNotFound: true);
         m_LeftEye_Camera = m_LeftEye.FindAction("Camera", throwIfNotFound: true);
         m_LeftEye_Movement = m_LeftEye.FindAction("Movement", throwIfNotFound: true);
+        m_LeftEye_EyeSwitch = m_LeftEye.FindAction("Eye Switch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -162,12 +182,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private ILeftEyeActions m_LeftEyeActionsCallbackInterface;
     private readonly InputAction m_LeftEye_Camera;
     private readonly InputAction m_LeftEye_Movement;
+    private readonly InputAction m_LeftEye_EyeSwitch;
     public struct LeftEyeActions
     {
         private @PlayerControls m_Wrapper;
         public LeftEyeActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Camera => m_Wrapper.m_LeftEye_Camera;
         public InputAction @Movement => m_Wrapper.m_LeftEye_Movement;
+        public InputAction @EyeSwitch => m_Wrapper.m_LeftEye_EyeSwitch;
         public InputActionMap Get() { return m_Wrapper.m_LeftEye; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -183,6 +205,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Movement.started -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnMovement;
+                @EyeSwitch.started -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnEyeSwitch;
+                @EyeSwitch.performed -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnEyeSwitch;
+                @EyeSwitch.canceled -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnEyeSwitch;
             }
             m_Wrapper.m_LeftEyeActionsCallbackInterface = instance;
             if (instance != null)
@@ -193,6 +218,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @EyeSwitch.started += instance.OnEyeSwitch;
+                @EyeSwitch.performed += instance.OnEyeSwitch;
+                @EyeSwitch.canceled += instance.OnEyeSwitch;
             }
         }
     }
@@ -201,5 +229,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     {
         void OnCamera(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnEyeSwitch(InputAction.CallbackContext context);
     }
 }

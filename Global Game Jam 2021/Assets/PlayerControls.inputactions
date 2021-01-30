@@ -20,6 +20,14 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Eye Switch",
+                    "type": "Button",
+                    "id": "37cf68e4-d430-4ebf-817f-f7507695dae1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -88,6 +96,17 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "fa5b3281-dc2f-4bb3-b503-0380ca7c17d4",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Eye Switch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

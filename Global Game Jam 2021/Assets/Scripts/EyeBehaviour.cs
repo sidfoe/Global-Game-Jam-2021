@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 
 public class EyeBehaviour : MonoBehaviour
 {
+    public GameObject leftEye;
+    public GameObject rightEye;
+    private bool isLeftEye = true;
+
     [Header("Inputs")]
     public Vector2 moveInputs; // X for move left/right, Y for move forward/back
     public Vector2 lookInputs; // X for rotate left/right, Y for look up/down
@@ -22,6 +26,11 @@ public class EyeBehaviour : MonoBehaviour
     private float camRotationY = 0; // current camera up/down rotation value
     private float camRotationX = 0; // current camera up/down rotation value
 
+    public void Start()
+    {
+        playerHead.position = leftEye.transform.position;
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInputs = context.ReadValue<Vector2>();
@@ -30,6 +39,26 @@ public class EyeBehaviour : MonoBehaviour
     public void UpdateLookInputs(InputAction.CallbackContext context)
     {
         lookInputs = context.ReadValue<Vector2>();
+    }
+
+    public void OnEyeSwitch(InputAction.CallbackContext context)
+    {
+        SwitchEyes();
+    }
+
+    private void SwitchEyes()
+    {
+        if(isLeftEye == true)
+        {
+            playerHead.position = rightEye.transform.position;
+            isLeftEye = false;
+        }
+
+        else if(isLeftEye == false)
+        {
+            playerHead.position = leftEye.transform.position;
+            isLeftEye = true;
+        }
     }
 
     // Keep input in Update when possible for smoother UX
