@@ -21,7 +21,7 @@ public class EyeBehaviour : MonoBehaviour
     [Header("Moving")]
     public Rigidbody playerBody; // to walk, move body, not this
     public float speed = 25; // multiplier for movement
-    public float turnSpeed = 100; // multiplier for turning
+    public float rotateSpeed = 100; // multiplier for turning
 
     [Header("Looking")]
     public Transform playerHead; // to look, rotate head or body (axis depending), not this
@@ -34,6 +34,10 @@ public class EyeBehaviour : MonoBehaviour
 
     private bool canLook = false;
     private int canLookCount = 0;
+
+    private bool canRotate = false;
+    private int canRotateCount = 0;
+    private bool rotateLeft = true;
 
     public void Start()
     {
@@ -67,6 +71,35 @@ public class EyeBehaviour : MonoBehaviour
     {
         SwitchEyes();
     }
+
+    public void OnRotateLeft(InputAction.CallbackContext context)
+    {
+        rotateLeft = true;
+        canRotate = true;
+
+        canRotateCount++;
+
+        if (canRotateCount == 3)
+        {
+            canRotate = false;
+            canRotateCount = 0;
+        }
+    }
+
+    public void OnRotateRight(InputAction.CallbackContext context)
+    {
+        rotateLeft = false;
+        canRotate = true;
+
+        canRotateCount++;
+
+        if (canRotateCount == 3)
+        {
+            canRotate = false;
+            canRotateCount = 0;
+        }
+    }
+
 
     private void SwitchEyes()
     {
@@ -127,6 +160,19 @@ public class EyeBehaviour : MonoBehaviour
                     // Apply rotation to player
                     playerHead.localRotation = Quaternion.Euler(-camRotationYRight, camRotationXRight, 0);
                 }
+            }
+        }
+
+        if(canRotate == true)
+        {
+            if(rotateLeft == true)
+            {
+                playerBody.transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
+            }
+
+            if(rotateLeft == false)
+            {
+                playerBody.transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
             }
         }
     }

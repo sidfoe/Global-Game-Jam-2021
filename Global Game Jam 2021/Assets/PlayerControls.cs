@@ -24,7 +24,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""4a6e7ea1-07df-49b1-aca0-77d504f85f49"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold""
+                    ""interactions"": ""Hold(duration=0.05)""
                 },
                 {
                     ""name"": ""Camera"",
@@ -49,6 +49,22 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""RotateBodyLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""9e24eaab-fcff-4667-902e-e1a30925aa5b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.05)""
+                },
+                {
+                    ""name"": ""RotateBodyRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""8166854a-ab5a-4b3a-a9af-b740daadabdb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(duration=0.05)""
                 }
             ],
             ""bindings"": [
@@ -139,6 +155,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Click To Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bc4a85ff-6bce-4788-81bf-14159c11c099"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateBodyLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6d2ba4f7-cad4-4457-9203-2f31faa139ee"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateBodyRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -151,6 +189,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_LeftEye_Camera = m_LeftEye.FindAction("Camera", throwIfNotFound: true);
         m_LeftEye_Movement = m_LeftEye.FindAction("Movement", throwIfNotFound: true);
         m_LeftEye_EyeSwitch = m_LeftEye.FindAction("Eye Switch", throwIfNotFound: true);
+        m_LeftEye_RotateBodyLeft = m_LeftEye.FindAction("RotateBodyLeft", throwIfNotFound: true);
+        m_LeftEye_RotateBodyRight = m_LeftEye.FindAction("RotateBodyRight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -204,6 +244,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_LeftEye_Camera;
     private readonly InputAction m_LeftEye_Movement;
     private readonly InputAction m_LeftEye_EyeSwitch;
+    private readonly InputAction m_LeftEye_RotateBodyLeft;
+    private readonly InputAction m_LeftEye_RotateBodyRight;
     public struct LeftEyeActions
     {
         private @PlayerControls m_Wrapper;
@@ -212,6 +254,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Camera => m_Wrapper.m_LeftEye_Camera;
         public InputAction @Movement => m_Wrapper.m_LeftEye_Movement;
         public InputAction @EyeSwitch => m_Wrapper.m_LeftEye_EyeSwitch;
+        public InputAction @RotateBodyLeft => m_Wrapper.m_LeftEye_RotateBodyLeft;
+        public InputAction @RotateBodyRight => m_Wrapper.m_LeftEye_RotateBodyRight;
         public InputActionMap Get() { return m_Wrapper.m_LeftEye; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -233,6 +277,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @EyeSwitch.started -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnEyeSwitch;
                 @EyeSwitch.performed -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnEyeSwitch;
                 @EyeSwitch.canceled -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnEyeSwitch;
+                @RotateBodyLeft.started -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnRotateBodyLeft;
+                @RotateBodyLeft.performed -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnRotateBodyLeft;
+                @RotateBodyLeft.canceled -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnRotateBodyLeft;
+                @RotateBodyRight.started -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnRotateBodyRight;
+                @RotateBodyRight.performed -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnRotateBodyRight;
+                @RotateBodyRight.canceled -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnRotateBodyRight;
             }
             m_Wrapper.m_LeftEyeActionsCallbackInterface = instance;
             if (instance != null)
@@ -249,6 +299,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @EyeSwitch.started += instance.OnEyeSwitch;
                 @EyeSwitch.performed += instance.OnEyeSwitch;
                 @EyeSwitch.canceled += instance.OnEyeSwitch;
+                @RotateBodyLeft.started += instance.OnRotateBodyLeft;
+                @RotateBodyLeft.performed += instance.OnRotateBodyLeft;
+                @RotateBodyLeft.canceled += instance.OnRotateBodyLeft;
+                @RotateBodyRight.started += instance.OnRotateBodyRight;
+                @RotateBodyRight.performed += instance.OnRotateBodyRight;
+                @RotateBodyRight.canceled += instance.OnRotateBodyRight;
             }
         }
     }
@@ -259,5 +315,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnCamera(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnEyeSwitch(InputAction.CallbackContext context);
+        void OnRotateBodyLeft(InputAction.CallbackContext context);
+        void OnRotateBodyRight(InputAction.CallbackContext context);
     }
 }

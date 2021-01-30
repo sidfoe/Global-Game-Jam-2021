@@ -157,7 +157,7 @@ MonoBehaviour:
   lookInputs: {x: 0, y: 0}
   playerBody: {fileID: 861887621}
   speed: 7
-  turnSpeed: 100
+  rotateSpeed: 100
   playerHead: {fileID: 1385127867}
   lookAngleRangeY: 60
   lookAngleRangeX: 360
@@ -261,6 +261,36 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 4a6e7ea1-07df-49b1-aca0-77d504f85f49
     m_ActionName: LeftEye/Click To Look[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 37038193}
+        m_MethodName: OnRotateLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9e24eaab-fcff-4667-902e-e1a30925aa5b
+    m_ActionName: LeftEye/RotateBodyLeft[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 37038193}
+        m_MethodName: OnRotateRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8166854a-ab5a-4b3a-a9af-b740daadabdb
+    m_ActionName: LeftEye/RotateBodyRight[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: LeftEye
@@ -731,13 +761,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1385127864}
-  m_LocalRotation: {x: 0, y: 0.98139334, z: 0, w: 0.19200817}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.25, y: 0.5, z: -4.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 157.86, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1616378178
 GameObject:
   m_ObjectHideFlags: 0

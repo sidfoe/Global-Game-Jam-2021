@@ -11,7 +11,7 @@
                     "id": "4a6e7ea1-07df-49b1-aca0-77d504f85f49",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold"
+                    "interactions": "Hold(duration=0.05)"
                 },
                 {
                     "name": "Camera",
@@ -36,6 +36,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "RotateBodyLeft",
+                    "type": "Button",
+                    "id": "9e24eaab-fcff-4667-902e-e1a30925aa5b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.05)"
+                },
+                {
+                    "name": "RotateBodyRight",
+                    "type": "Button",
+                    "id": "8166854a-ab5a-4b3a-a9af-b740daadabdb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.05)"
                 }
             ],
             "bindings": [
@@ -124,6 +140,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Click To Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bc4a85ff-6bce-4788-81bf-14159c11c099",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateBodyLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6d2ba4f7-cad4-4457-9203-2f31faa139ee",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateBodyRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
