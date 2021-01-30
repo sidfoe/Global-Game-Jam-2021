@@ -12,7 +12,7 @@ public class EyeBehaviour : MonoBehaviour
 
     [Header("Moving")]
     public Rigidbody playerBody; // to walk, move body, not this
-    public float movementSpeed = 25; // multiplier for movement
+    public float speed = 25; // multiplier for movement
     public float turnSpeed = 100; // multiplier for turning
 
     [Header("Looking")]
@@ -22,7 +22,7 @@ public class EyeBehaviour : MonoBehaviour
     private float camRotationY = 0; // current camera up/down rotation value
     private float camRotationX = 0; // current camera up/down rotation value
 
-    public void UpdateMoveInputs(InputAction.CallbackContext context)
+    public void OnMove(InputAction.CallbackContext context)
     {
         moveInputs = context.ReadValue<Vector2>();
     }
@@ -60,7 +60,8 @@ public class EyeBehaviour : MonoBehaviour
         if (moveInputs != Vector2.zero)
         {
             // Move around in XZ space
-            playerBody.AddRelativeForce(new Vector3(moveInputs.x * movementSpeed * Time.deltaTime, 0, moveInputs.y * movementSpeed * Time.deltaTime), ForceMode.Impulse);
+            //playerBody.AddRelativeForce(new Vector3(moveInputs.x * speed * Time.deltaTime, 0, moveInputs.y * speed * Time.deltaTime), ForceMode.Impulse);
+            playerBody.transform.position += new Vector3(moveInputs.x * speed * Time.deltaTime, 0, moveInputs.y * speed * Time.deltaTime);
         }
     }
 }
