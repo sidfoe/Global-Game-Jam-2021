@@ -65,6 +65,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Hold(duration=0.05)""
+                },
+                {
+                    ""name"": ""PickUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""f42f83f3-d8cf-4fbd-a0f6-ec657b12eb8f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -177,6 +185,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""RotateBodyRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""552aad3b-0c2f-420e-ac9a-237536a3eebc"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -191,6 +210,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_LeftEye_EyeSwitch = m_LeftEye.FindAction("Eye Switch", throwIfNotFound: true);
         m_LeftEye_RotateBodyLeft = m_LeftEye.FindAction("RotateBodyLeft", throwIfNotFound: true);
         m_LeftEye_RotateBodyRight = m_LeftEye.FindAction("RotateBodyRight", throwIfNotFound: true);
+        m_LeftEye_PickUp = m_LeftEye.FindAction("PickUp", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -246,6 +266,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_LeftEye_EyeSwitch;
     private readonly InputAction m_LeftEye_RotateBodyLeft;
     private readonly InputAction m_LeftEye_RotateBodyRight;
+    private readonly InputAction m_LeftEye_PickUp;
     public struct LeftEyeActions
     {
         private @PlayerControls m_Wrapper;
@@ -256,6 +277,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @EyeSwitch => m_Wrapper.m_LeftEye_EyeSwitch;
         public InputAction @RotateBodyLeft => m_Wrapper.m_LeftEye_RotateBodyLeft;
         public InputAction @RotateBodyRight => m_Wrapper.m_LeftEye_RotateBodyRight;
+        public InputAction @PickUp => m_Wrapper.m_LeftEye_PickUp;
         public InputActionMap Get() { return m_Wrapper.m_LeftEye; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -283,6 +305,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @RotateBodyRight.started -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnRotateBodyRight;
                 @RotateBodyRight.performed -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnRotateBodyRight;
                 @RotateBodyRight.canceled -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnRotateBodyRight;
+                @PickUp.started -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnPickUp;
+                @PickUp.performed -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnPickUp;
+                @PickUp.canceled -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnPickUp;
             }
             m_Wrapper.m_LeftEyeActionsCallbackInterface = instance;
             if (instance != null)
@@ -305,6 +330,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @RotateBodyRight.started += instance.OnRotateBodyRight;
                 @RotateBodyRight.performed += instance.OnRotateBodyRight;
                 @RotateBodyRight.canceled += instance.OnRotateBodyRight;
+                @PickUp.started += instance.OnPickUp;
+                @PickUp.performed += instance.OnPickUp;
+                @PickUp.canceled += instance.OnPickUp;
             }
         }
     }
@@ -317,5 +345,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnEyeSwitch(InputAction.CallbackContext context);
         void OnRotateBodyLeft(InputAction.CallbackContext context);
         void OnRotateBodyRight(InputAction.CallbackContext context);
+        void OnPickUp(InputAction.CallbackContext context);
     }
 }

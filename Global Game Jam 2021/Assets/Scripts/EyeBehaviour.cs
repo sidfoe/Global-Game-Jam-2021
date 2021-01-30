@@ -10,6 +10,12 @@ public class EyeBehaviour : MonoBehaviour
     public GameObject rightEye;
     private bool isLeftEye = true;
 
+    public GameObject leftUI;
+    public GameObject rightUI;
+
+    private bool leftEyeAttached = false;
+    private bool rightEyeAttached = false;
+
     //The rotation of the eyes, set when switched so that you when you switch back its view is in the same place
     private Quaternion leftEyeRot;
     private Quaternion rightEyeRot = Quaternion.identity;
@@ -44,6 +50,9 @@ public class EyeBehaviour : MonoBehaviour
     public void Start()
     {
         playerHead.position = leftEye.transform.position;
+        playerHead.SetParent(leftEye.transform);
+
+        rightUI.SetActive(false);
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -102,6 +111,38 @@ public class EyeBehaviour : MonoBehaviour
         }
     }
 
+    public void OnGrab(InputAction.CallbackContext context)
+    {
+        if(playerBody.GetComponent<CollisionCheck>().nearPickUp == true)
+        {
+            if(playerBody.GetComponent<CollisionCheck>().itemTag == "Eye")
+            {
+                if(playerBody.GetComponent<CollisionCheck>().colObject == leftEye)
+                {
+                    leftEye.transform.position = playerBody.transform.GetChild(1).gameObject.transform.position;
+                    leftEye.transform.SetParent(playerBody.transform.GetChild(1).gameObject.transform);
+                    leftEyeAttached = true;
+                    leftEye.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    playerHead.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    leftEyeRot = playerHead.transform.rotation;
+                    leftEye.tag = "Untagged";
+
+                }
+
+                else
+                {
+                    rightEye.transform.position = playerBody.transform.GetChild(0).gameObject.transform.position;
+                    rightEye.transform.SetParent(playerBody.transform.GetChild(0).gameObject.transform);
+                    rightEyeAttached = true;
+                    rightEye.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    playerHead.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    rightEyeRot = playerHead.transform.rotation;
+                    rightEye.tag = "Untagged";
+                }
+            }
+        }
+    }
+
 
     private void SwitchEyes()
     {
@@ -110,10 +151,16 @@ public class EyeBehaviour : MonoBehaviour
             leftEyeRot = playerHead.rotation;
 
             playerHead.position = rightEye.transform.position;
+            playerHead.SetParent(rightEye.transform);
+            playerHead.transform.localPosition = new Vector3(0, 0, 0);
+            
 
             playerHead.rotation = rightEyeRot;
 
             isLeftEye = false;
+
+            rightUI.SetActive(true);
+            leftUI.SetActive(false);
         }
 
         else if(isLeftEye == false) //switching to left eye
@@ -121,10 +168,16 @@ public class EyeBehaviour : MonoBehaviour
             rightEyeRot = playerHead.rotation;
 
             playerHead.position = leftEye.transform.position;
+            playerHead.SetParent(leftEye.transform);
+            playerHead.transform.localPosition = new Vector3(0, 0, 0);
+           
 
             playerHead.rotation = leftEyeRot;
 
             isLeftEye = true;
+
+            rightUI.SetActive(false);
+            leftUI.SetActive(true);
         }
     }
 
@@ -143,7 +196,14 @@ public class EyeBehaviour : MonoBehaviour
                 {
                     // Build up rotation up/down input over time
                     camRotationYLeft += lookInputs.y * .2f;
-                    camRotationXLeft += lookInputs.x * .2f;
+                    if (leftEyeAttached == false)
+                    {
+                        camRotationXLeft += lookInputs.x * .2f;
+                    }
+                    else
+                    {
+                        camRotationXLeft = 0;
+                    }
                     // Clamp up/down rotation within logical bounds
                     camRotationYLeft = Mathf.Clamp(camRotationYLeft, -lookAngleRangeY, lookAngleRangeY);
                     //camRotationX = Mathf.Clamp(camRotationX, -lookAngleRangeX, lookAngleRangeX);
@@ -155,7 +215,14 @@ public class EyeBehaviour : MonoBehaviour
                 {
                     // Build up rotation up/down input over time
                     camRotationYRight += lookInputs.y * .2f;
-                    camRotationXRight += lookInputs.x * .2f;
+                    if (rightEyeAttached == false)
+                    {
+                        camRotationXRight += lookInputs.x * .2f;
+                    }
+                    else
+                    {
+                        camRotationXRight = 0;
+                    }
                     // Clamp up/down rotation within logical bounds
                     camRotationYRight = Mathf.Clamp(camRotationYRight, -lookAngleRangeY, lookAngleRangeY);
                     //camRotationX = Mathf.Clamp(camRotationX, -lookAngleRangeX, lookAngleRangeX);
