@@ -22,17 +22,6 @@ public class EyeBehaviour : MonoBehaviour
     private float camRotationY = 0; // current camera up/down rotation value
     private float camRotationX = 0; // current camera up/down rotation value
 
-    #region Receive Input Values
-    // Call these functions from the PlayerInput component as set up by this guide:
-    // https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/manual/QuickStartGuide.html#getting-input-indirectly-through-an-input-action
-    // This is designed for you to use "Action Responses" when 
-    // Player Input Behaviour is set to "Invoke Unity Events", 
-    // and then you can point those events to these functions.
-
-    // Because the CallbackContext object is generic, you must call ReadValue<T>
-    // and specify the type that you're expecting. Read more on C# generics here:
-    // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/generics/
-
     public void UpdateMoveInputs(InputAction.CallbackContext context)
     {
         moveInputs = context.ReadValue<Vector2>();
@@ -42,7 +31,6 @@ public class EyeBehaviour : MonoBehaviour
     {
         lookInputs = context.ReadValue<Vector2>();
     }
-    #endregion
 
     // Keep input in Update when possible for smoother UX
     private void Update()
@@ -54,8 +42,8 @@ public class EyeBehaviour : MonoBehaviour
             //playerBody.transform.Rotate(new Vector3(0, lookInputs.x * turnSpeed * Time.deltaTime), Space.Self);
 
             // Build up rotation up/down input over time
-            camRotationY += lookInputs.y;
-            camRotationX += lookInputs.x;
+            camRotationY += lookInputs.y * .2f;
+            camRotationX += lookInputs.x * .2f;
             // Clamp up/down rotation within logical bounds
             camRotationY = Mathf.Clamp(camRotationY, -lookAngleRangeY, lookAngleRangeY);
             //camRotationX = Mathf.Clamp(camRotationX, -lookAngleRangeX, lookAngleRangeX);
