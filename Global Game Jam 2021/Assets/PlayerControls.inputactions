@@ -1,0 +1,33 @@
+{
+    "name": "PlayerControls",
+    "maps": [
+        {
+            "name": "LeftEye",
+            "id": "14a0905c-dd1c-4353-88ea-da30280bd88b",
+            "actions": [
+                {
+                    "name": "Camera",
+                    "type": "Value",
+                    "id": "155e6161-459d-4eaf-95c5-2d2c452fc720",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "47eddcc6-3d7e-4512-ac74-1e4240f658bb",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
