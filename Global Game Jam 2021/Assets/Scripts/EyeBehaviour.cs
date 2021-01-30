@@ -39,6 +39,8 @@ public class EyeBehaviour : MonoBehaviour
     private int canRotateCount = 0;
     private bool rotateLeft = true;
 
+    public InputActionReference movement;
+
     public void Start()
     {
         playerHead.position = leftEye.transform.position;
@@ -175,17 +177,32 @@ public class EyeBehaviour : MonoBehaviour
                 playerBody.transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
             }
         }
+
+
+        //MOVEMENT
+        Vector2 moveControl = movement.action.ReadValue<Vector2>();
+        Vector3 move = new Vector3(moveControl.x, 0, moveControl.y);
+        move = playerBody.transform.forward * move.z + playerBody.transform.right * move.x;
+        move.y = 0;
+
+        playerBody.GetComponent<CharacterController>().Move(move * Time.deltaTime * speed);
     }
 
     // Keep physics-based things in FixedUpdate to reduce performance impact
     private void FixedUpdate()
     {
+
         // Only process if there is input
-        if (moveInputs != Vector2.zero)
-        {
-            // Move around in XZ space
-            //playerBody.AddRelativeForce(new Vector3(moveInputs.x * speed * Time.deltaTime, 0, moveInputs.y * speed * Time.deltaTime), ForceMode.Impulse);
-            playerBody.transform.position += new Vector3(moveInputs.x * speed * Time.deltaTime, 0, moveInputs.y * speed * Time.deltaTime);
-        }
+        //if (moveInputs != Vector2.zero)
+        //{
+        // Move around in XZ space
+        //playerBody.AddRelativeForce(new Vector3(moveInputs.x * speed * Time.deltaTime, 0, moveInputs.y * speed * Time.deltaTime), ForceMode.Impulse);
+
+        
+
+            //playerBody.transform.position += new Vector3(move.x * speed * Time.deltaTime, 0, move.y * speed * Time.deltaTime);
+
+            //playerBody.transform.position += new Vector3(moveInputs.x * speed * Time.deltaTime, 0, moveInputs.y * speed * Time.deltaTime);
+        //}
     }
 }
