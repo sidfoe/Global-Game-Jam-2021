@@ -6,6 +6,14 @@
             "id": "14a0905c-dd1c-4353-88ea-da30280bd88b",
             "actions": [
                 {
+                    "name": "Click To Look",
+                    "type": "Button",
+                    "id": "4a6e7ea1-07df-49b1-aca0-77d504f85f49",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold"
+                },
+                {
                     "name": "Camera",
                     "type": "Value",
                     "id": "155e6161-459d-4eaf-95c5-2d2c452fc720",
@@ -105,6 +113,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Eye Switch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0ac028e4-8c8a-4c31-88b4-71dc4b2e5d2e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click To Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

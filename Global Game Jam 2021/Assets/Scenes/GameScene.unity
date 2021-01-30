@@ -204,7 +204,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 37038193}
-        m_MethodName: UpdateLookInputs
+        m_MethodName: OnLook
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -246,6 +246,21 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 37cf68e4-d430-4ebf-817f-f7507695dae1
     m_ActionName: LeftEye/Eye Switch[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 37038193}
+        m_MethodName: OnClickToLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4a6e7ea1-07df-49b1-aca0-77d504f85f49
+    m_ActionName: LeftEye/Click To Look[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: LeftEye

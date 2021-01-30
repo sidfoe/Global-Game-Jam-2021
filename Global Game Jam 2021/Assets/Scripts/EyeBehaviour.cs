@@ -27,8 +27,13 @@ public class EyeBehaviour : MonoBehaviour
     public Transform playerHead; // to look, rotate head or body (axis depending), not this
     public float lookAngleRangeY = 60; // 60' up, 60' down
     public float lookAngleRangeX = 60; // 60' up, 60' down
-    private float camRotationY = 0; // current camera up/down rotation value
-    private float camRotationX = 0; // current camera up/down rotation value
+    private float camRotationYLeft = 0; // current camera up/down rotation value
+    private float camRotationXLeft = 0; // current camera left/right rotation value
+    private float camRotationYRight = 0; // current camera up/down rotation value
+    private float camRotationXRight = 0; // current camera left/right rotation value
+
+    private bool canLook = false;
+    private int canLookCount = 0;
 
     public void Start()
     {
@@ -40,7 +45,20 @@ public class EyeBehaviour : MonoBehaviour
         moveInputs = context.ReadValue<Vector2>();
     }
 
-    public void UpdateLookInputs(InputAction.CallbackContext context)
+    public void OnClickToLook(InputAction.CallbackContext context)
+    {
+        canLook = true;
+
+        canLookCount++;
+
+        if(canLookCount == 3)
+        {
+            canLook = false;
+            canLookCount = 0;
+        }
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
     {
         lookInputs = context.ReadValue<Vector2>();
     }
@@ -78,21 +96,38 @@ public class EyeBehaviour : MonoBehaviour
     // Keep input in Update when possible for smoother UX
     private void Update()
     {
-        // Only process if there is input
-        if (lookInputs != Vector2.zero)
+        if (canLook == true)
         {
-            // Rotate body on Y axis of player character to turn left/right
-            //playerBody.transform.Rotate(new Vector3(0, lookInputs.x * turnSpeed * Time.deltaTime), Space.Self);
+            // Only process if there is input
+            if (lookInputs != Vector2.zero)
+            {
+                // Rotate body on Y axis of player character to turn left/right
+                //playerBody.transform.Rotate(new Vector3(0, lookInputs.x * turnSpeed * Time.deltaTime), Space.Self);
 
-            // Build up rotation up/down input over time
-            camRotationY += lookInputs.y * .2f;
-            camRotationX += lookInputs.x * .2f;
-            // Clamp up/down rotation within logical bounds
-            camRotationY = Mathf.Clamp(camRotationY, -lookAngleRangeY, lookAngleRangeY);
-            //camRotationX = Mathf.Clamp(camRotationX, -lookAngleRangeX, lookAngleRangeX);
-            // Apply rotation to player
-            playerHead.localRotation = Quaternion.Euler(-camRotationY, camRotationX, 0);
+                if (isLeftEye == true)
+                {
+                    // Build up rotation up/down input over time
+                    camRotationYLeft += lookInputs.y * .2f;
+                    camRotationXLeft += lookInputs.x * .2f;
+                    // Clamp up/down rotation within logical bounds
+                    camRotationYLeft = Mathf.Clamp(camRotationYLeft, -lookAngleRangeY, lookAngleRangeY);
+                    //camRotationX = Mathf.Clamp(camRotationX, -lookAngleRangeX, lookAngleRangeX);
+                    // Apply rotation to player
+                    playerHead.localRotation = Quaternion.Euler(-camRotationYLeft, camRotationXLeft, 0);
+                }
 
+                if (isLeftEye == false)
+                {
+                    // Build up rotation up/down input over time
+                    camRotationYRight += lookInputs.y * .2f;
+                    camRotationXRight += lookInputs.x * .2f;
+                    // Clamp up/down rotation within logical bounds
+                    camRotationYRight = Mathf.Clamp(camRotationYRight, -lookAngleRangeY, lookAngleRangeY);
+                    //camRotationX = Mathf.Clamp(camRotationX, -lookAngleRangeX, lookAngleRangeX);
+                    // Apply rotation to player
+                    playerHead.localRotation = Quaternion.Euler(-camRotationYRight, camRotationXRight, 0);
+                }
+            }
         }
     }
 

@@ -19,6 +19,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
             ""id"": ""14a0905c-dd1c-4353-88ea-da30280bd88b"",
             ""actions"": [
                 {
+                    ""name"": ""Click To Look"",
+                    ""type"": ""Button"",
+                    ""id"": ""4a6e7ea1-07df-49b1-aca0-77d504f85f49"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold""
+                },
+                {
                     ""name"": ""Camera"",
                     ""type"": ""Value"",
                     ""id"": ""155e6161-459d-4eaf-95c5-2d2c452fc720"",
@@ -120,6 +128,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Eye Switch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ac028e4-8c8a-4c31-88b4-71dc4b2e5d2e"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click To Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -128,6 +147,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
 }");
         // LeftEye
         m_LeftEye = asset.FindActionMap("LeftEye", throwIfNotFound: true);
+        m_LeftEye_ClickToLook = m_LeftEye.FindAction("Click To Look", throwIfNotFound: true);
         m_LeftEye_Camera = m_LeftEye.FindAction("Camera", throwIfNotFound: true);
         m_LeftEye_Movement = m_LeftEye.FindAction("Movement", throwIfNotFound: true);
         m_LeftEye_EyeSwitch = m_LeftEye.FindAction("Eye Switch", throwIfNotFound: true);
@@ -180,6 +200,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     // LeftEye
     private readonly InputActionMap m_LeftEye;
     private ILeftEyeActions m_LeftEyeActionsCallbackInterface;
+    private readonly InputAction m_LeftEye_ClickToLook;
     private readonly InputAction m_LeftEye_Camera;
     private readonly InputAction m_LeftEye_Movement;
     private readonly InputAction m_LeftEye_EyeSwitch;
@@ -187,6 +208,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     {
         private @PlayerControls m_Wrapper;
         public LeftEyeActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ClickToLook => m_Wrapper.m_LeftEye_ClickToLook;
         public InputAction @Camera => m_Wrapper.m_LeftEye_Camera;
         public InputAction @Movement => m_Wrapper.m_LeftEye_Movement;
         public InputAction @EyeSwitch => m_Wrapper.m_LeftEye_EyeSwitch;
@@ -199,6 +221,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_LeftEyeActionsCallbackInterface != null)
             {
+                @ClickToLook.started -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnClickToLook;
+                @ClickToLook.performed -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnClickToLook;
+                @ClickToLook.canceled -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnClickToLook;
                 @Camera.started -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnCamera;
                 @Camera.performed -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnCamera;
                 @Camera.canceled -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnCamera;
@@ -212,6 +237,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
             m_Wrapper.m_LeftEyeActionsCallbackInterface = instance;
             if (instance != null)
             {
+                @ClickToLook.started += instance.OnClickToLook;
+                @ClickToLook.performed += instance.OnClickToLook;
+                @ClickToLook.canceled += instance.OnClickToLook;
                 @Camera.started += instance.OnCamera;
                 @Camera.performed += instance.OnCamera;
                 @Camera.canceled += instance.OnCamera;
@@ -227,6 +255,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     public LeftEyeActions @LeftEye => new LeftEyeActions(this);
     public interface ILeftEyeActions
     {
+        void OnClickToLook(InputAction.CallbackContext context);
         void OnCamera(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnEyeSwitch(InputAction.CallbackContext context);
