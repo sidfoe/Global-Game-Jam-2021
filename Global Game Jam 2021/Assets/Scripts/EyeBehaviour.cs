@@ -10,6 +10,10 @@ public class EyeBehaviour : MonoBehaviour
     public GameObject rightEye;
     private bool isLeftEye = true;
 
+    //The rotation of the eyes, set when switched so that you when you switch back its view is in the same place
+    private Quaternion leftEyeRot;
+    private Quaternion rightEyeRot = Quaternion.identity;
+
     [Header("Inputs")]
     public Vector2 moveInputs; // X for move left/right, Y for move forward/back
     public Vector2 lookInputs; // X for rotate left/right, Y for look up/down
@@ -48,15 +52,25 @@ public class EyeBehaviour : MonoBehaviour
 
     private void SwitchEyes()
     {
-        if(isLeftEye == true)
+        if(isLeftEye == true) //switching to right eye
         {
+            leftEyeRot = playerHead.rotation;
+
             playerHead.position = rightEye.transform.position;
+
+            playerHead.rotation = rightEyeRot;
+
             isLeftEye = false;
         }
 
-        else if(isLeftEye == false)
+        else if(isLeftEye == false) //switching to left eye
         {
+            rightEyeRot = playerHead.rotation;
+
             playerHead.position = leftEye.transform.position;
+
+            playerHead.rotation = leftEyeRot;
+
             isLeftEye = true;
         }
     }
