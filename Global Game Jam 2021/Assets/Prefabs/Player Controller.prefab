@@ -53,12 +53,14 @@ MonoBehaviour:
   playerBody: {fileID: 0}
   speed: 15
   rotateSpeed: 100
-  jumpHeight: 0
+  jumpHeight: 3
   playerHead: {fileID: 0}
   lookAngleRangeY: 60
   lookAngleRangeX: 360
   movement: {fileID: -8675770083474902767, guid: 03603f50e36dc8b4c9cd4913814a7010,
     type: 3}
+  jump: {fileID: 4298830352222741976, guid: 03603f50e36dc8b4c9cd4913814a7010, type: 3}
+  gravity: -20
 --- !u!114 &5801862985338699974
 MonoBehaviour:
   m_ObjectHideFlags: 0
