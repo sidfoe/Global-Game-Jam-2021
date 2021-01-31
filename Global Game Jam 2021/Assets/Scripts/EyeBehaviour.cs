@@ -170,6 +170,7 @@ public class EyeBehaviour : MonoBehaviour
                 playerBody.GetComponent<CollisionCheck>().colObject.GetComponent<Rigidbody>().isKinematic = true;
                 playerBody.GetComponent<CollisionCheck>().colObject.transform.SetParent(playerBody.transform.GetChild(2).gameObject.transform);
                 playerBody.GetComponent<CollisionCheck>().colObject.transform.localPosition = Vector3.zero;
+                playerBody.GetComponent<CollisionCheck>().colObject.transform.localRotation = Quaternion.Euler(0,0,0);
             }
         }
 
