@@ -179,8 +179,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: c8b92075e8b8feb478459ebf9132684a, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1190,7 +1190,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: 15}
+  m_AnchoredPosition: {x: 5, y: 21.8}
   m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &543114100
@@ -1214,8 +1214,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Congrats on Finding your Eyes
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9be5efafda2ad6243b5ade514b5b421e, type: 2}
+  m_sharedMaterial: {fileID: -4005649797543928330, guid: 9be5efafda2ad6243b5ade514b5b421e,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1239,8 +1240,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1862,6 +1863,25 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: c90aba0d225151b4fae898ce59e628cc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17413c35b3bb3d14582d8c252df293f8, type: 3}
+--- !u!1 &760159521 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8513424388201257645, guid: 17413c35b3bb3d14582d8c252df293f8,
+    type: 3}
+  m_PrefabInstance: {fileID: 760159520}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &760159522
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760159521}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.968065, y: 1.259616, z: 1}
+  m_Center: {x: -0.9840325, y: 0.74611205, z: 0}
 --- !u!1 &889733006
 GameObject:
   m_ObjectHideFlags: 0
@@ -2619,7 +2639,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1261618471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.49, y: 9.37, z: -46.57}
+  m_LocalPosition: {x: -0.49, y: 9.37, z: -45.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3110,8 +3130,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.9312496
-  m_Center: {x: 0, y: 0.731075, z: 1.4005922}
+  m_Radius: 3.7051916
+  m_Center: {x: 2.8846392e-10, y: 1.5050167, z: 1.4005919}
 --- !u!143 &1572543320
 CharacterController:
   m_ObjectHideFlags: 0
