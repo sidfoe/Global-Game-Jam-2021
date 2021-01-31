@@ -52,6 +52,8 @@ public class EyeBehaviour : MonoBehaviour
     private Vector3 playerVelocity;
     public float gravity;
 
+    private bool hasPickedUp = false;
+
     public void Start()
     {
         playerHead.position = leftEye.transform.position;
@@ -123,7 +125,15 @@ public class EyeBehaviour : MonoBehaviour
 
     public void OnGrab(InputAction.CallbackContext context)
     {
-        if(playerBody.GetComponent<CollisionCheck>().nearPickUp == true)
+        if (hasPickedUp == true)
+        {
+            Debug.Log("here");
+            hasPickedUp = false;
+            playerBody.GetComponent<CollisionCheck>().colObject.GetComponent<Rigidbody>().isKinematic = false;
+            playerBody.GetComponent<CollisionCheck>().colObject.transform.SetParent(null);
+        }
+
+        else if (playerBody.GetComponent<CollisionCheck>().nearPickUp == true)
         {
             if(playerBody.GetComponent<CollisionCheck>().itemTag == "Eye")
             {
@@ -150,7 +160,17 @@ public class EyeBehaviour : MonoBehaviour
                     rightEye.tag = "Untagged";
                 }
             }
+
+            if(playerBody.GetComponent<CollisionCheck>().itemTag == "PickUp" && hasPickedUp == false)
+            {
+                hasPickedUp = true;
+                playerBody.GetComponent<CollisionCheck>().colObject.GetComponent<Rigidbody>().isKinematic = true;
+                playerBody.GetComponent<CollisionCheck>().colObject.transform.SetParent(playerBody.transform.GetChild(2).gameObject.transform);
+                playerBody.GetComponent<CollisionCheck>().colObject.transform.localPosition = Vector3.zero;
+            }
         }
+
+        
     }
 
 
