@@ -81,6 +81,22 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Back To Main"",
+                    ""type"": ""Button"",
+                    ""id"": ""62dd646b-ff55-4a4a-81ab-ff5887abe607"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Restart"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e7364dd-6327-4394-b67a-3ece88e70454"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -215,6 +231,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""197ee2ce-0d3b-4f5c-a2fa-cc58d1d22fef"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back To Main"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5fb0709d-445c-4b19-91be-dbf55a8957f6"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -231,6 +269,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_LeftEye_RotateBodyRight = m_LeftEye.FindAction("RotateBodyRight", throwIfNotFound: true);
         m_LeftEye_PickUp = m_LeftEye.FindAction("PickUp", throwIfNotFound: true);
         m_LeftEye_Jump = m_LeftEye.FindAction("Jump", throwIfNotFound: true);
+        m_LeftEye_BackToMain = m_LeftEye.FindAction("Back To Main", throwIfNotFound: true);
+        m_LeftEye_Restart = m_LeftEye.FindAction("Restart", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -288,6 +328,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_LeftEye_RotateBodyRight;
     private readonly InputAction m_LeftEye_PickUp;
     private readonly InputAction m_LeftEye_Jump;
+    private readonly InputAction m_LeftEye_BackToMain;
+    private readonly InputAction m_LeftEye_Restart;
     public struct LeftEyeActions
     {
         private @PlayerControls m_Wrapper;
@@ -300,6 +342,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @RotateBodyRight => m_Wrapper.m_LeftEye_RotateBodyRight;
         public InputAction @PickUp => m_Wrapper.m_LeftEye_PickUp;
         public InputAction @Jump => m_Wrapper.m_LeftEye_Jump;
+        public InputAction @BackToMain => m_Wrapper.m_LeftEye_BackToMain;
+        public InputAction @Restart => m_Wrapper.m_LeftEye_Restart;
         public InputActionMap Get() { return m_Wrapper.m_LeftEye; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -333,6 +377,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnJump;
+                @BackToMain.started -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnBackToMain;
+                @BackToMain.performed -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnBackToMain;
+                @BackToMain.canceled -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnBackToMain;
+                @Restart.started -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnRestart;
+                @Restart.performed -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnRestart;
+                @Restart.canceled -= m_Wrapper.m_LeftEyeActionsCallbackInterface.OnRestart;
             }
             m_Wrapper.m_LeftEyeActionsCallbackInterface = instance;
             if (instance != null)
@@ -361,6 +411,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @BackToMain.started += instance.OnBackToMain;
+                @BackToMain.performed += instance.OnBackToMain;
+                @BackToMain.canceled += instance.OnBackToMain;
+                @Restart.started += instance.OnRestart;
+                @Restart.performed += instance.OnRestart;
+                @Restart.canceled += instance.OnRestart;
             }
         }
     }
@@ -375,5 +431,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnRotateBodyRight(InputAction.CallbackContext context);
         void OnPickUp(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnBackToMain(InputAction.CallbackContext context);
+        void OnRestart(InputAction.CallbackContext context);
     }
 }

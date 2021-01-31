@@ -1,18 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuBehaviour : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject creditsPanel;
+    public GameObject levelSelectPanel;
+
+    public void Start()
     {
-        
+        if(EyeBehaviour.hasBothEyes == true)
+        {
+            StartButton();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartButton()
     {
-        
+        levelSelectPanel.SetActive(true);
+    }
+
+    public void Credits()
+    {
+        creditsPanel.SetActive(true);
+    }
+
+    public void Quit()
+    {
+        Quit();
+    }
+
+    public void Back()
+    {
+        levelSelectPanel.SetActive(false);
+        creditsPanel.SetActive(false);
+    }
+
+    public void LoadScene(int i)
+    {
+        SceneManager.LoadScene(i);
     }
 }

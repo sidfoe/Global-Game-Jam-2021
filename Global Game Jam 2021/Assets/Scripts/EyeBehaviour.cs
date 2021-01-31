@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class EyeBehaviour : MonoBehaviour
 {
@@ -53,6 +54,9 @@ public class EyeBehaviour : MonoBehaviour
     public float gravity;
 
     private bool hasPickedUp = false;
+
+    public static bool hasBothEyes = false;
+    public GameObject endPanel;
 
     public void Start()
     {
@@ -146,7 +150,6 @@ public class EyeBehaviour : MonoBehaviour
                     playerHead.transform.localRotation = Quaternion.Euler(0, 0, 0);
                     leftEyeRot = playerHead.transform.rotation;
                     leftEye.tag = "Untagged";
-
                 }
 
                 else
@@ -173,6 +176,16 @@ public class EyeBehaviour : MonoBehaviour
         
     }
 
+    public void OnBackToMain(InputAction.CallbackContext context)
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void OnRestart(InputAction.CallbackContext context)
+    {
+        int i = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(i);
+    }
 
     private void SwitchEyes()
     {
@@ -214,6 +227,12 @@ public class EyeBehaviour : MonoBehaviour
     // Keep input in Update when possible for smoother UX
     private void Update()
     {
+        if(leftEyeAttached == true && rightEyeAttached == true)
+        {
+            hasBothEyes = true;
+            StartCoroutine("Ending");
+        }
+
         if (canLook == true)
         {
             // Only process if there is input
@@ -315,5 +334,12 @@ public class EyeBehaviour : MonoBehaviour
 
         //playerBody.transform.position += new Vector3(moveInputs.x * speed * Time.deltaTime, 0, moveInputs.y * speed * Time.deltaTime);
         //}
+    }
+
+    public IEnumerator Ending()
+    {
+        endPanel.SetActive(true);
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene(0);
     }
 }
