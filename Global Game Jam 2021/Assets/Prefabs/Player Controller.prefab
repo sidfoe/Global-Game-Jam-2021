@@ -46,14 +46,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftEye: {fileID: 0}
   rightEye: {fileID: 0}
+  leftUI: {fileID: 0}
+  rightUI: {fileID: 0}
   moveInputs: {x: 0, y: 0}
   lookInputs: {x: 0, y: 0}
   playerBody: {fileID: 0}
   speed: 15
   rotateSpeed: 100
+  jumpHeight: 0
   playerHead: {fileID: 0}
   lookAngleRangeY: 60
   lookAngleRangeX: 360
+  movement: {fileID: -8675770083474902767, guid: 03603f50e36dc8b4c9cd4913814a7010,
+    type: 3}
 --- !u!114 &5801862985338699974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,18 +101,7 @@ MonoBehaviour:
     m_ActionId: 155e6161-459d-4eaf-95c5-2d2c452fc720
     m_ActionName: LeftEye/Camera[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5801862985338699968}
-        m_MethodName: OnMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 4be93a06-a2ba-47c2-a40e-242c846a18be
     m_ActionName: LeftEye/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
@@ -170,6 +164,36 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8166854a-ab5a-4b3a-a9af-b740daadabdb
     m_ActionName: LeftEye/RotateBodyRight[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5801862985338699968}
+        m_MethodName: OnGrab
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f42f83f3-d8cf-4fbd-a0f6-ec657b12eb8f
+    m_ActionName: LeftEye/PickUp[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5801862985338699968}
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 257cc5dc-34a9-49bb-b840-415c317e35af
+    m_ActionName: LeftEye/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: LeftEye

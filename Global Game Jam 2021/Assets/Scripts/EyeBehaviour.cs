@@ -28,6 +28,7 @@ public class EyeBehaviour : MonoBehaviour
     public Rigidbody playerBody; // to walk, move body, not this
     public float speed = 25; // multiplier for movement
     public float rotateSpeed = 100; // multiplier for turning
+    public float jumpHeight;
 
     [Header("Looking")]
     public Transform playerHead; // to look, rotate head or body (axis depending), not this
@@ -46,6 +47,10 @@ public class EyeBehaviour : MonoBehaviour
     private bool rotateLeft = true;
 
     public InputActionReference movement;
+    public InputActionReference jump;
+    private bool groundedPlayer;
+    private Vector3 playerVelocity;
+    public float gravity;
 
     public void Start()
     {
@@ -58,6 +63,11 @@ public class EyeBehaviour : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInputs = context.ReadValue<Vector2>();
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+  
     }
 
     public void OnClickToLook(InputAction.CallbackContext context)
@@ -245,6 +255,12 @@ public class EyeBehaviour : MonoBehaviour
             }
         }
 
+        groundedPlayer = playerBody.GetComponent<CharacterController>().isGrounded;
+        if(groundedPlayer && playerVelocity.y < 0)
+        {
+            playerVelocity.y = 0f;
+        }
+
 
         //MOVEMENT
         Vector2 moveControl = movement.action.ReadValue<Vector2>();
@@ -253,6 +269,14 @@ public class EyeBehaviour : MonoBehaviour
         move.y = 0;
 
         playerBody.GetComponent<CharacterController>().Move(move * Time.deltaTime * speed);
+
+        if(jump.action.triggered && groundedPlayer)
+        {
+            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3 * gravity);
+        }
+
+        playerVelocity.y += gravity * Time.deltaTime;
+        playerBody.GetComponent<CharacterController>().Move(playerVelocity * Time.deltaTime);
     }
 
     // Keep physics-based things in FixedUpdate to reduce performance impact
@@ -265,11 +289,11 @@ public class EyeBehaviour : MonoBehaviour
         // Move around in XZ space
         //playerBody.AddRelativeForce(new Vector3(moveInputs.x * speed * Time.deltaTime, 0, moveInputs.y * speed * Time.deltaTime), ForceMode.Impulse);
 
-        
 
-            //playerBody.transform.position += new Vector3(move.x * speed * Time.deltaTime, 0, move.y * speed * Time.deltaTime);
 
-            //playerBody.transform.position += new Vector3(moveInputs.x * speed * Time.deltaTime, 0, moveInputs.y * speed * Time.deltaTime);
+        //playerBody.transform.position += new Vector3(move.x * speed * Time.deltaTime, 0, move.y * speed * Time.deltaTime);
+
+        //playerBody.transform.position += new Vector3(moveInputs.x * speed * Time.deltaTime, 0, moveInputs.y * speed * Time.deltaTime);
         //}
     }
 }

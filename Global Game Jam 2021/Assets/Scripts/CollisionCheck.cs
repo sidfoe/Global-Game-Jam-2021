@@ -37,4 +37,21 @@ public class CollisionCheck : MonoBehaviour
             nearPickUp = false;
         }
     }
+
+    //public void OnCollisionEnter(Collision col)
+    //{
+    //    if (col.gameObject.CompareTag("ground"))
+    //    {
+    //        Debug.Log("here");
+    //        EyeBehaviour.isGrounded = true;
+    //    }
+    //}
+
+    //public void OnCollisionExit(Collision col)
+    //{
+    //    if (col.gameObject.CompareTag("ground"))
+    //    {
+    //        EyeBehaviour.isGrounded = false;
+    //    }
+    //}
 }
